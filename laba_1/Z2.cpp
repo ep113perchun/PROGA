@@ -33,8 +33,8 @@ int main () {
     int maxValue = 100;
     int** arr = genRandMatrix(size, maxValue);
     printMatrix(arr);
-    // for(int i = 0; i < size; ++i)
-    //         delete[] arr[i];
-    // delete [] arr;
+    for(int i = 0; i < size; ++i)
+            delete[] arr[i];
+    delete [] arr;
     return 0;
 }
