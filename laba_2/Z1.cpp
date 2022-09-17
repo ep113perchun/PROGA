@@ -3,27 +3,85 @@
 
 using namespace std;
 
-int main ()
+int** genRandMatrix(int size)
 {
-    srand(time(0));
-    int size;
-    cin >> size;
-    int cols = size; //stolbci
-    int rows = size; //stroki
-
-    int **Arr = new int*[rows];
-    for(int i = 0; i < rows; i++)
+    int **Arr = new int*[size];
+    for(int i = 0; i < size; i++)
     {
-        Arr[i] = new int[cols];
-        for (int j = 0; j < cols; j++)
+        Arr[i] = new int[size];
+        for (int j = 0; j < size; j++)
         {
             Arr[i][j] = rand() % 9 + 1;
+        }
+    }
+    return Arr;
+}
+
+void printMatrix(int** Arr, int size)
+{
+    for(int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
             cout << Arr[i][j] << " ";
         }
         cout << endl;
     }
+}
 
-    int Arr_D[4];
+void right_diagonals(int** Arr, int size)
+{
+
+}
+
+void left_diagonals(int** Arr, int size)
+{
+
+}
+
+void centr(int** Arr, int size)
+{
+
+}
+
+void left_elements(int** Arr, int size)
+{
+
+}
+
+int main ()
+{
+    srand(time(0));
+    int size;
+    int metod;
+    cout << "size: ";
+    cin >> size;
+
+    int** Arr = genRandMatrix(size);
+    printMatrix(Arr, size);
+
+    cout << "1) right diagonals" << endl
+         << "2) left diagonals"  << endl
+         << "3) centr"           << endl
+         << "4) left elements"   << endl
+         << "enter: ";
+    cin >> metod;
+    if(metod == 1)
+    {
+        right_diagonals(Arr, size);
+    }
+    if(metod == 2)
+    {
+        left_diagonals(Arr, size);
+    }
+    if(metod == 3)
+    {
+        centr(Arr, size);
+    }
+    if(metod == 4);
+    {
+        left_elements(Arr, size);
+    }
 
     for(int i = 0; i < size; i++)
             delete[] Arr[i];
