@@ -32,6 +32,7 @@ tPoint::tPoint(int x, int y)
 	Y = y;
 	shape.setRadius(10.f); 
 	shape.setPointCount(20); 
+	shape.setFillColor(sf::Color(rand()%256, rand()%256, rand()%256));
 }
 
 void tPoint::random_movement()
@@ -65,8 +66,7 @@ void tPoint::direct_movement()
 
 void tPoint::draw(sf::RenderWindow &window) {
 	shape.setPosition(X, Y);
-	shape.setFillColor(sf::Color(100, 250, 50));
-	window.draw(shape);
+	window.draw( shape);
 }
 
 int main()
