@@ -1,10 +1,14 @@
 #include<iostream>
-
 using namespace std;
 
-void create_Arr(){
+class items_list
+{
+public:
     
-}
+};
+
+
+
 
 int main(){
     

@@ -8,6 +8,10 @@ class FIGURE //class FIGURE.....................................................
 {
 public:
 	void direct_movement();
+    virtual void draw(sf::RenderWindow &window) = 0;
+    virtual void Rotation();
+    FIGURE();
+    FIGURE(int X, int Y, int DX, int DY);
 protected:
 	int dX;
 	int dY;
@@ -18,14 +22,29 @@ protected:
 	int RanY = rand() % 10;
 	int rotation = 0;
 
-	sf::CircleShape POINT_f; 
+	sf::CircleShape POINT_f;
 	sf::RectangleShape LINE_f;
-	sf::CircleShape CIRCLE_f; 
+	sf::CircleShape CIRCLE_f;
 	sf::CircleShape RECTANGL_f;
 	sf::CircleShape TRIANGLE_f;
 	sf::CircleShape ELLIPSE_f;
 	sf::CircleShape RHOMBUS_f;
 };
+
+FIGURE::FIGURE(): X(0), Y(0), dX(rand() % 20 - 10), dY(rand() % 20 - 10) {
+    cout << "constructor FIGURE" << endl;
+}
+
+FIGURE::FIGURE(int X, int Y, int DX, int DY) {
+    this -> dX = DX;
+	this -> dY = DY;
+    this -> X = X;
+    this -> Y = Y;
+}
+
+void FIGURE :: Rotation(){
+    cout << " " << endl;
+}
 
 void FIGURE :: direct_movement()
 {
@@ -48,7 +67,7 @@ class POINT : public FIGURE	//class POINT.......................................
 {
 public:
 	POINT(int x = 0, int y = 0);
-	void draw(sf::RenderWindow &window);
+	void draw(sf::RenderWindow &window) override;
 };
 
 POINT::POINT(int x, int y)
@@ -71,14 +90,14 @@ class LINE : public FIGURE//class LINE..........................................
 {
 public:
 	LINE(int x = 0, int y = 0);
-	void draw(sf::RenderWindow &window);
-	void Rotation();
+	void draw(sf::RenderWindow &window) override;
+	void Rotation() override;
 };
 
 LINE::LINE(int x, int y)
 {
-	dX = 4;
-	dY = 7;
+	dX = 5;
+	dY = 0;
 	X = x;
 	Y = y;
 	LINE_f.setSize(sf::Vector2f(30, 3));
@@ -100,7 +119,7 @@ class CIRCLE : public FIGURE //class CIRCLE.....................................
 {
 public:
 	CIRCLE(int x = 0, int y = 0);
-	void draw(sf::RenderWindow &window);
+	void draw(sf::RenderWindow &window) override;
 };
 
 CIRCLE::CIRCLE(int x, int y)
@@ -123,8 +142,8 @@ class RECTANGL : public FIGURE //class RECTANGL.................................
 {
 public:
 	RECTANGL(int x = 0, int y = 0);
-	void draw(sf::RenderWindow &window);
-	void Rotation();
+	void draw(sf::RenderWindow &window) override;
+	void Rotation() override;
 };
 
 RECTANGL::RECTANGL(int x, int y)
@@ -153,14 +172,14 @@ class TRIANGLE : public FIGURE //class TRIANGLE.................................
 {
 public:
 	TRIANGLE(int x = 0, int y = 0);
-	void draw(sf::RenderWindow &window);
-	void Rotation();
+	void draw(sf::RenderWindow &window)override;
+	void Rotation() override;
 };
 
 TRIANGLE::TRIANGLE(int x, int y)
 {
-	dX = 5;
-	dY = 6;
+	dX = 0;
+	dY = 7;
 	X = x;
 	Y = y;
 	TRIANGLE_f.setRadius(20.f); 
@@ -176,20 +195,20 @@ void TRIANGLE::draw(sf::RenderWindow &window) {
 void TRIANGLE :: Rotation()
 {
 	TRIANGLE_f.setRotation(rotation);
-	rotation += 5;
+	rotation += 0;
 }
 
 class ELLIPSE : public FIGURE //class ELLIPSE....................................................................................................................................class ELLIPSE
 {
 public:
 	ELLIPSE(int x = 0, int y = 0);
-	void draw(sf::RenderWindow &window);
-	void Rotation();
+	void draw(sf::RenderWindow &window) override;
+	void Rotation()override;
 };
 
 ELLIPSE::ELLIPSE(int x, int y)
 {
-	dX = 5;
+	dX = 0;
 	dY = 6;
 	X = x;
 	Y = y;
@@ -214,8 +233,8 @@ class RHOMBUS : public FIGURE //class RHOMBUS...................................
 {
 public:
 	RHOMBUS(int x = 0, int y = 0);
-	void draw(sf::RenderWindow &window);
-	void Rotation();
+	void draw(sf::RenderWindow &window) override;
+	void Rotation()override;
 };
 
 RHOMBUS::RHOMBUS(int x, int y)
@@ -247,48 +266,27 @@ int main() //MAIN...............................................................
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "LABA");
 	window.setFramerateLimit(30);
 
-	POINT** POINT_ARR = new POINT*[15];
-	LINE** LINE_ARR = new LINE*[15];
-	CIRCLE** CIRCLE_ARR = new CIRCLE*[15];
-	RECTANGL** RECTANGL_ARR = new RECTANGL*[15];
-	TRIANGLE** TRIANGLE_ARR = new TRIANGLE*[15];
-	ELLIPSE** ELLIPSE_ARR = new ELLIPSE*[15];
-	RHOMBUS** RHOMBUS_ARR = new RHOMBUS*[15];
 
-	for (int i = 0; i < 15; i++)
+	FIGURE** FIGURE_ARR = new FIGURE*[105];
+
+	for (int i = 0; i < 105; i+=7)
 	{
-		POINT_ARR[i] = new POINT(rand() % 1900, rand() % 1060);
-		LINE_ARR[i] = new LINE(rand() % 1900, rand() % 1060);
-		CIRCLE_ARR[i] = new CIRCLE(rand() % 1900, rand() % 1060);
-		RECTANGL_ARR[i] = new RECTANGL(rand() % 1900, rand() % 1060);
-		TRIANGLE_ARR[i] = new TRIANGLE(rand() % 1900, rand() % 1060);
-		ELLIPSE_ARR[i] = new ELLIPSE(rand() % 1900, rand() % 1060);
-		RHOMBUS_ARR[i] = new RHOMBUS(rand() % 1900, rand() % 1060);
+		FIGURE_ARR[i+0] = new POINT(rand() % 1900, rand() % 1060);
+		FIGURE_ARR[i+1] = new LINE(rand() % 1900, rand() % 1060);
+		FIGURE_ARR[i+2] = new CIRCLE(rand() % 1900, rand() % 1060);
+		FIGURE_ARR[i+3] = new RECTANGL(rand() % 1900, rand() % 1060);
+		FIGURE_ARR[i+4] = new TRIANGLE(rand() % 1900, rand() % 1060);
+		FIGURE_ARR[i+5] = new ELLIPSE(rand() % 1900, rand() % 1060);
+		FIGURE_ARR[i+6] = new RHOMBUS(rand() % 1900, rand() % 1060);
 	}
 	cout << endl;
 
 	while (window.isOpen())
 	{
-		for (int i = 0; i < 15; i++)
+		for (int i = 0; i < 105; i++)
 		{
-			POINT_ARR[i]->direct_movement();
-
-			LINE_ARR[i]->direct_movement();
-	    	LINE_ARR[i]->Rotation();
-
-			CIRCLE_ARR[i]->direct_movement();
-
-			RECTANGL_ARR[i]->direct_movement();
-	    	RECTANGL_ARR[i]->Rotation();
-
-			TRIANGLE_ARR[i]->direct_movement();
-	    	TRIANGLE_ARR[i]->Rotation();
-
-			ELLIPSE_ARR[i]->direct_movement();
-	    	ELLIPSE_ARR[i]->Rotation();
-
-			RHOMBUS_ARR[i]->direct_movement();
-	    	RHOMBUS_ARR[i]->Rotation();
+			FIGURE_ARR[i]->direct_movement();
+	    	FIGURE_ARR[i]->Rotation();
 		}
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -298,15 +296,9 @@ int main() //MAIN...............................................................
 		}
  
 		window.clear();
-		for (int i = 0; i < 15; i++)
+		for (int i = 0; i < 105; i++)
 		{
-			POINT_ARR[i]->draw(window);
-			LINE_ARR[i]->draw(window);
-			CIRCLE_ARR[i]->draw(window);
-			RECTANGL_ARR[i]->draw(window);
-			TRIANGLE_ARR[i]->draw(window);
-			ELLIPSE_ARR[i]->draw(window);
-			RHOMBUS_ARR[i]->draw(window);
+			FIGURE_ARR[i]->draw(window);
 		}
 		window.display();
 	}

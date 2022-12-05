@@ -8,7 +8,7 @@ public:
     int* data;
     MyClass(int size)
     {
-        this->Size = size;
+        this -> Size = size;
         this -> data = new int[size];
         for (int i = 0; i < size; i++)
         {
@@ -19,8 +19,8 @@ public:
     };
     MyClass(const MyClass &other)
     {
-        this->Size = other.Size;
-        this->data = new int[other.Size];
+        this -> Size = other.Size;
+        this -> data = new int[other.Size];
         for (int i = 0; i < other.Size; i++)
         {
             this->data[i] = other.data[i];

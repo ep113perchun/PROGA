@@ -32,9 +32,12 @@ int main () {
     int size = rand() % 10 + 1;
     int maxValue = 100;
     int** arr = genRandMatrix(size, maxValue);
+
     printMatrix(arr);
+
     for(int i = 0; i < size; ++i)
             delete[] arr[i];
     delete [] arr;
+    
     return 0;
 }
