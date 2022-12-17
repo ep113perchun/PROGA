@@ -1,7 +1,8 @@
 #include "class.h"
-#include "queue.h"
 
 int main() {
+    srand(time(NULL));
+    
     Snake_cannibal snake1;
     Snake_hedonist snake2;
 

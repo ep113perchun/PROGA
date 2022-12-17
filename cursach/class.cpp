@@ -1,5 +1,6 @@
 #include "class.h"
 #include <iostream>
+#include <ctime>
 
 void Snake_cannibal::cut(){
     std :: cout << "Snake_cannibal cut" << std :: endl;
@@ -68,6 +69,8 @@ void Game::crowl(ISnake & Snake) {
 
     while (window.isOpen())
     {
+        
+
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -80,11 +83,17 @@ void Game::crowl(ISnake & Snake) {
             
         rotate_object();
 
+        if(Arr[0]->X == apple.X && Arr[0]->Y == apple.Y){
+            apple.X = 20 * (rand()%95);
+            apple.Y = 20 * (rand()%53);
+            SIZE++;
+        }
+
             
         window.clear();
         Arr[0]->draw_head(window);
         draw_object(window);
-        window.display();     
+        window.display();
     }
 }
 
@@ -95,12 +104,14 @@ void Game::creation_object() {
     }
 }
 void Game::draw_object(sf::RenderWindow &window) {
-    for (int i = 1; i < MAX_SIZE; i++)
+    apple.draw(window);
+    for (int i = 1; i < SIZE; i++)
     {
         Arr[i]->assignment();
         Arr[i]->X = Arr[i-1]->Dx;
         Arr[i]->Y = Arr[i-1]->Dy;
         Arr[i]->draw(window);
+       // apple.draw(window);
     }
 }
 void Game::rotate_object() {

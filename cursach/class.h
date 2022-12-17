@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-
 class ISnake {
 public:
     void virtual cut() = 0;
@@ -45,8 +44,11 @@ private:
     int coordinate_X = 20;
     int coordinate_Y = 0;
 
-    static const int MAX_SIZE = 20;
+    static const int MAX_SIZE = 200;
+    int SIZE = 1;
 
+
+    SNAKE apple = SNAKE(20 * (rand()%95), 20 * (rand()%53));
     SNAKE* Arr[MAX_SIZE];
 
 public:
