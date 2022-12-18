@@ -4,26 +4,26 @@
 
 class ISnake {
 public:
-    void virtual edge_of_screen() = 0;
-    void virtual die() = 0;
+    void virtual edge_of_screen(int &X, int &Y, int &bo) = 0;
+    void virtual cut(int X, int Y, int x, int y, int &syze, int i) = 0;
 };
 
 class Snake_cannibal : public ISnake {
 public:
-    void edge_of_screen() override;
-    void die() override;
+    void edge_of_screen(int &X, int &Y, int &bo) override;
+    void cut(int X, int Y, int x, int y, int &syze, int i) override;
 };
 
 class Snake_hedonist : public ISnake {
 public:
-    void edge_of_screen() override;
-    void die() override;
+    void edge_of_screen(int &X, int &Y, int &bo) override;
+    void cut(int X, int Y, int x, int y, int &syze, int i) override;
 };
 
 class SNAKE : public Snake_cannibal, public Snake_hedonist{
 public:
-	int X;
-	int Y;
+    int X;
+    int Y;
 	int Dx;
 	int Dy;
 	sf::CircleShape shape; 

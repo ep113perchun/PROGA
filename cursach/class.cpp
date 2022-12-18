@@ -3,26 +3,25 @@
 #include <ctime>
 #include <string>
 
-void Snake_cannibal::edge_of_screen(){
-    // for (int i = 0; i < ISnake::SIZE; i++)
-    // {
-    //     /* code */
-    // }
-    
+void Snake_cannibal::edge_of_screen(int &X, int &Y, int &bo){
+    if(X >= 1920){X=0;}
+    else if(X < 0){X=1920;}
+    if(Y >= 1080){Y=0;}
+    else if(Y < 0){Y=1080;}
 }
 
-void Snake_cannibal::die(){
-    std :: cout << "Snake_cannibal die" << std :: endl;
+void Snake_cannibal::cut(int X, int Y, int x, int y, int &size, int i){
+    if(X == x && Y == y && size != 1){size = i+1;}
 }
 
 ///////////////////////
 
-void Snake_hedonist::edge_of_screen(){
-	std :: cout << "Snake_hedonist cut" << std :: endl;
+void Snake_hedonist::edge_of_screen(int &X, int &Y, int &bo){
+	if(X >= 1920 || X < 0 || Y >= 1080 || Y < 0){bo = 0;}
 }
 
-void Snake_hedonist::die(){
-	std :: cout << "Snake_hedonist die" << std :: endl;
+void Snake_hedonist::cut(int X, int Y, int x, int y, int &size, int i){
+	if(X == x && Y == y && size != 1){size = size;}
 }
 
 ///////////////////////
@@ -31,7 +30,7 @@ SNAKE::SNAKE(int x, int y)
 {
 	
 	X = x;
-	Y = y;
+    Y = y;
 	Dx = x;
 	Dy = y;
 	shape.setRadius(10.f); 
@@ -72,13 +71,20 @@ void Game::crowl(ISnake & Snake) {
 
     creation_object();
 
+    int bo = 1;
+
     while (window.isOpen())
     {
+        for (int i = 0; i < SIZE; i++)
+        {
+            Snake.edge_of_screen(Arr[i]->X, Arr[i]->Y, bo);
+            Snake.cut(Arr[i+1]->X, Arr[i+1]->Y, Arr[0]->X,  Arr[0]->Y, SIZE, i);
+        }
 
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed  || bo==0)
                 window.close();
         }
 
@@ -123,7 +129,7 @@ void Game::draw_object(sf::RenderWindow &window) {
 void Game::rotate_object() {
     if      (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){coordinate_X = -20; coordinate_Y = 0;} 
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){coordinate_X = 20; coordinate_Y = 0;} 
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){coordinate_X = 0; coordinate_Y = -20;} 
+    if      (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))  {coordinate_X = 0; coordinate_Y = -20;} 
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){coordinate_X = 0; coordinate_Y = 20;}
 }
 
