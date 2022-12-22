@@ -58,6 +58,7 @@ private:
 public:
     void crowl(ISnake & Snake); 
     void set_SIZE(int size);
+    ~Game();
 };
 
 class Sprint {

@@ -26,7 +26,7 @@ void Snake_hedonist::cut(int X, int Y, int x, int y, int &size, int i){
 
 ///////////////////////
 
-SNAKE::SNAKE(int x, int y)
+SNAKE::SNAKE(int x, int y) : X(0), Y(0)
 {
 	
 	X = x;
@@ -135,6 +135,13 @@ void Game::rotate_object() {
 
 void Game::set_SIZE(int size){
     SIZE = size;
+}
+
+Game::~Game(){
+    for (int i = 0; i < MAX_SIZE; i++)
+    {
+        delete Arr[i];
+    }
 }
 
 ///////////////////////
