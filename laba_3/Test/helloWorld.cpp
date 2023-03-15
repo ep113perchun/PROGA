@@ -1,12 +1,7 @@
 #include<iostream>
 
 using namespace std;
-
-void create_Arr(){
-    
-}
-
-int main(){
-    
+int main () {
+    cout<<" hello world!!!!";
     return 0;
 }
